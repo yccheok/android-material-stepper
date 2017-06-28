@@ -48,6 +48,7 @@ import com.stepstone.stepper.adapter.StepAdapter;
 import com.stepstone.stepper.internal.feedback.StepperFeedbackType;
 import com.stepstone.stepper.internal.feedback.StepperFeedbackTypeFactory;
 import com.stepstone.stepper.internal.type.AbstractStepperType;
+import com.stepstone.stepper.internal.type.DotsStepperType;
 import com.stepstone.stepper.internal.type.StepperTypeFactory;
 import com.stepstone.stepper.internal.util.AnimationUtil;
 import com.stepstone.stepper.internal.util.TintUtil;
@@ -923,6 +924,12 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
             mBackNavigationButton.setText(mBackButtonText);
         } else {
             mBackNavigationButton.setText(backButtonTextForStep);
+        }
+    }
+
+    public void refreshSteperType() {
+        if (mStepperType instanceof DotsStepperType) {
+            ((DotsStepperType)mStepperType).refresh();
         }
     }
 }
