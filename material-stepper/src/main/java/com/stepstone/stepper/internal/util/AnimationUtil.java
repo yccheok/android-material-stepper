@@ -40,10 +40,16 @@ public final class AnimationUtil {
      * @param animate true if the visibility should be changed with an animation, false if instantaneously
      */
     public static void fadeViewVisibility(@NonNull final View view, @Visibility final int visibility, boolean animate) {
+        if (!animate) {
+            view.clearAnimation();
+            view.setVisibility(visibility);
+            return;
+        }
+
         ViewPropertyAnimator animator = view.animate();
         animator.cancel();
         animator.alpha(visibility == View.VISIBLE ? ALPHA_OPAQUE : ALPHA_INVISIBLE)
-                .setDuration(animate ? DEFAULT_DURATION : 0)
+                .setDuration(DEFAULT_DURATION)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(@NonNull Animator animation) {
