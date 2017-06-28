@@ -37,6 +37,8 @@ public class DotsStepperType extends AbstractStepperType {
 
     private final DottedProgressBar mDottedProgressBar;
 
+    private StepAdapter mStepAdapter;
+
     public DotsStepperType(StepperLayout stepperLayout) {
         super(stepperLayout);
         mDottedProgressBar = (DottedProgressBar) stepperLayout.findViewById(R.id.ms_stepDottedProgressBar);
@@ -64,8 +66,19 @@ public class DotsStepperType extends AbstractStepperType {
     @Override
     public void onNewAdapter(@NonNull StepAdapter stepAdapter) {
         super.onNewAdapter(stepAdapter);
-        final int stepCount = stepAdapter.getCount();
+        this.mStepAdapter = stepAdapter;
+
+        refresh();
+    }
+
+    public void refresh() {
+        if (mStepAdapter == null) {
+            return;
+        }
+        
+        final int stepCount = mStepAdapter.getCount();
         mDottedProgressBar.setDotCount(stepCount);
         mDottedProgressBar.setVisibility(stepCount > 1 ? View.VISIBLE : View.GONE);
+        mDottedProgressBar.setCurrent(this.mStepperLayout.getCurrentStepPosition(), false);
     }
 }
