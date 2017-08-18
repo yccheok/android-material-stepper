@@ -315,11 +315,7 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
     public void setAdapter(@NonNull StepAdapter stepAdapter) {
         this.mStepAdapter = stepAdapter;
 
-        if (stepAdapter == null) {
-            mPager.setAdapter(null);
-        } else {
-            mPager.setAdapter(stepAdapter.getPagerAdapter());
-        }
+        mPager.setAdapter(stepAdapter.getPagerAdapter());
 
         mStepperType.onNewAdapter(stepAdapter);
 
