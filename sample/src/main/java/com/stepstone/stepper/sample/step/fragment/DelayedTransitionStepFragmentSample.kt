@@ -66,7 +66,7 @@ internal class DelayedTransitionStepFragmentSample : ButterKnifeFragment(), Bloc
         Handler().postDelayed({
             dialog?.dismiss()
             if (shouldOperationSucceed()) {
-                callback.goToNextStep()
+                callback.goToNextStep(this)
             } else {
                 val activity = this@DelayedTransitionStepFragmentSample.activity
                 if (activity != null && isResumed) {
@@ -96,6 +96,14 @@ internal class DelayedTransitionStepFragmentSample : ButterKnifeFragment(), Bloc
     @UiThread
     override fun onBackClicked(callback: StepperLayout.OnBackClickedCallback) {
         Toast.makeText(this.context, "Your custom back action. Here you should cancel currently running operations", Toast.LENGTH_SHORT).show()
-        callback.goToPrevStep()
+        callback.goToPrevStep(this)
+    }
+
+    override fun getNextOffset(): Int {
+        return 1
+    }
+
+    override fun getBackOffset(): Int {
+        return 1
     }
 }

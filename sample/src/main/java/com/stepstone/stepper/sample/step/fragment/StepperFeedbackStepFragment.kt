@@ -64,7 +64,7 @@ internal class StepperFeedbackStepFragment : ButterKnifeFragment(), BlockingStep
     override fun onNextClicked(callback: StepperLayout.OnNextClickedCallback) {
         callback.stepperLayout.showProgress("Operation in progress, please wait...")
         Handler().postDelayed({
-            callback.goToNextStep()
+            callback.goToNextStep(this)
             callback.stepperLayout.hideProgress()
         }, 2000L)
     }
@@ -75,10 +75,17 @@ internal class StepperFeedbackStepFragment : ButterKnifeFragment(), BlockingStep
 
     @UiThread
     override fun onBackClicked(callback: StepperLayout.OnBackClickedCallback) {
-        callback.goToPrevStep()
+        callback.goToPrevStep(this)
     }
 
     override val layoutResId: Int
         get() = R.layout.fragment_with_text_content
 
+    override fun getNextOffset(): Int {
+        return 1
+    }
+
+    override fun getBackOffset(): Int {
+        return 1
+    }
 }

@@ -105,4 +105,11 @@ internal class StepFragmentSample : ButterKnifeFragment(), Step {
         super.onSaveInstanceState(outState)
     }
 
+    override fun getNextOffset(): Int {
+        return 1
+    }
+
+    override fun getBackOffset(): Int {
+        return 1
+    }
 }

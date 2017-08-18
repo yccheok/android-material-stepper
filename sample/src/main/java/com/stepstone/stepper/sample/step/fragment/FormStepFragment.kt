@@ -74,4 +74,12 @@ internal class FormStepFragment : ButterKnifeFragment(), Step {
         }
         return true
     }
+
+    override fun getNextOffset(): Int {
+        return 1
+    }
+
+    override fun getBackOffset(): Int {
+        return 1
+    }
 }

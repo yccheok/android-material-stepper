@@ -22,4 +22,12 @@ open class DummyStepFragment : Fragment(), Step {
     }
 
     override fun onError(error: VerificationError) {}
+
+    override fun getNextOffset(): Int {
+        return 1
+    }
+
+    override fun getBackOffset(): Int {
+        return 1
+    }
 }

@@ -79,4 +79,11 @@ class StepViewSample(context: Context) : FrameLayout(context), Step {
         button?.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake_error))
     }
 
+    override fun getNextOffset(): Int {
+        return 1
+    }
+
+    override fun getBackOffset(): Int {
+        return 1
+    }
 }

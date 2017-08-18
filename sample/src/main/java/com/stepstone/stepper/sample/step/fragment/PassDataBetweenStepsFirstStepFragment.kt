@@ -63,7 +63,7 @@ internal class PassDataBetweenStepsFirstStepFragment : ButterKnifeFragment(), Bl
     override fun onNextClicked(callback: StepperLayout.OnNextClickedCallback) {
         val enteredText = editText.text.toString()
         dataManager.saveData(enteredText)
-        callback.goToNextStep()
+        callback.goToNextStep(this)
     }
 
     override fun onCompleteClicked(callback: StepperLayout.OnCompleteClickedCallback) {
@@ -72,10 +72,17 @@ internal class PassDataBetweenStepsFirstStepFragment : ButterKnifeFragment(), Bl
 
     @UiThread
     override fun onBackClicked(callback: StepperLayout.OnBackClickedCallback) {
-        callback.goToPrevStep()
+        callback.goToPrevStep(this)
     }
 
     override val layoutResId: Int
         get() = R.layout.fragment_step_form
 
+    override fun getNextOffset(): Int {
+        return 1
+    }
+
+    override fun getBackOffset(): Int {
+        return 1
+    }
 }

@@ -62,4 +62,11 @@ internal class PassDataBetweenStepsSecondStepFragment : ButterKnifeFragment(), S
     override val layoutResId: Int
         get() = R.layout.fragment_with_text_content
 
+    override fun getNextOffset(): Int {
+        return 1
+    }
+
+    override fun getBackOffset(): Int {
+        return 1
+    }
 }
