@@ -43,4 +43,7 @@ public interface Step {
      */
     void onError(@NonNull VerificationError error);
 
+    int getNextOffset();
+    
+    int getBackOffset();
 }

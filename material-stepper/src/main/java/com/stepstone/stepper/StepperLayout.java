@@ -133,14 +133,19 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
     public class OnNextClickedCallback extends AbstractOnButtonClickedCallback {
 
         @UiThread
-        public void goToNextStep() {
+        public void goToNextStep(Step step) {
             final int totalStepCount = mStepAdapter.getCount();
 
-            if (mCurrentStepPosition >= totalStepCount - 1) {
+            final int maxStepPosition = totalStepCount - 1;
+
+            if (mCurrentStepPosition >= maxStepPosition) {
                 return;
             }
 
-            mCurrentStepPosition++;
+            final int nextOffset = step.getNextOffset();
+
+            mCurrentStepPosition = Math.min(mCurrentStepPosition + nextOffset, maxStepPosition);
+
             onUpdate(mCurrentStepPosition, true);
         }
 
@@ -159,14 +164,18 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
     public class OnBackClickedCallback extends AbstractOnButtonClickedCallback {
 
         @UiThread
-        public void goToPrevStep() {
+        public void goToPrevStep(Step step) {
             if (mCurrentStepPosition <= 0) {
                 if (mShowBackButtonOnFirstStep) {
                     mListener.onReturn();
                 }
                 return;
             }
-            mCurrentStepPosition--;
+
+            final int backOffset = step.getBackOffset();
+
+            mCurrentStepPosition = Math.max(mCurrentStepPosition - backOffset, 0);
+
             onUpdate(mCurrentStepPosition, true);
         }
 
@@ -406,7 +415,7 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
         if (step instanceof BlockingStep) {
             ((BlockingStep) step).onBackClicked(onBackClickedCallback);
         } else {
-            onBackClickedCallback.goToPrevStep();
+            onBackClickedCallback.goToPrevStep(step);
         }
     }
 
@@ -839,7 +848,7 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
         if (step instanceof BlockingStep) {
             ((BlockingStep) step).onNextClicked(onNextClickedCallback);
         } else {
-            onNextClickedCallback.goToNextStep();
+            onNextClickedCallback.goToNextStep(step);
         }
     }
 
